@@ -17,7 +17,7 @@ public class ll{
         //========= general util ====================
 
         public int size(){
-            return this.size();
+            return this.size;
         }
 
         public boolean isEmpty(){
@@ -106,16 +106,67 @@ public class ll{
 
         // remove function
 
-        public void removeFirst(){
+        public int removeFirst(){
+            if(this.size==0){
+                System.out.print("Empty List");
+                return -1;
+            }
+            
+            Node rnode = this.head;
 
+            if(this.size==1){
+                this.head = null;
+                this.tail = null;
+            }else{
+                this.head = this.head.next;
+                rnode.next = null;
+            }
+
+            this.size--;
+            return rnode.data;
         }
 
-        public void removeLast(){
+        public int removeLast(){
+            if(this.size==0){
+                System.out.println("EmptyList!");
+                return -1;
+            }
 
+            Node rnode=this.tail;
+            if(this.size==1){
+                this.head=null;
+                this.tail=null;
+            }else{
+                Node secondLastNode=getNodeAt(this.size()-2);
+                secondLastNode.next=null;
+                this.tail=secondLastNode;
+            }
+
+            this.size--;
+            return rnode.data;
         }
         
-        public void removeAt(){
+        public int removeAt(int pos){
+            if(pos<0 || pos >= this.size){
+                System.out.print("nullpoint exception");
+                return -1;
+            } 
 
+            if(pos==0)
+                removeFirst();
+            else if(pos==this.size-1)
+                removeLast();
+            
+            else{
+                Node prev=getNodeAt(pos-1);
+                Node next=prev.next;
+
+                prev.next=next.next;
+                next.next=null;
+                this.size--;
+
+                return next.data;
+            }
         }
 
         // get function
@@ -126,9 +177,15 @@ public class ll{
         for(int i=1;i<=10;i++){
             ll.addFirst(i);
         } 
-        for(int i=1;i<=10;i++){
-            ll.addLast(i*10);
-        }
+        // for(int i=1;i<=10;i++){
+        //     ll.addLast(i*10);
+        // }
+        // ll.removeFirst();
+        // ll.removeLast();
+        ll.removeAt(4);
         System.out.print(ll);
     }
 }
+
+
+
