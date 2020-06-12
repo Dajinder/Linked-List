@@ -145,31 +145,61 @@ public class ll{
             this.size--;
             return rnode.data;
         }
-        
+
         public int removeAt(int pos){
-            if(pos<0 || pos >= this.size){
-                System.out.print("nullpoint exception");
+
+            Node prev = getNodeAt(pos-1);
+            Node rnode = prev.next;
+
+            if(pos<0 || pos>=this.size){
+                System.out.print("Nullpoint exception");
                 return -1;
-            } 
-
-            if(pos==0)
-                removeFirst();
-            else if(pos==this.size-1)
-                removeLast();
-            
-            else{
-                Node prev=getNodeAt(pos-1);
-                Node next=prev.next;
-
-                prev.next=next.next;
-                next.next=null;
-                this.size--;
-
-                return next.data;
             }
+
+            if(pos==0){
+                removeFirst();
+            }
+            else if(pos==this.size-1){
+                removeLast();
+            }
+
+            else{
+                
+                prev.next = rnode.next;
+                rnode.next = null;
+            }
+            this.size--;
+            return rnode.data;
+
         }
 
         // get function
+
+        public int getFirst(){
+            if(this.size==0){
+                System.out.println("Empty List");
+                return -1;
+            }
+
+            return this.head.data;
+        }
+
+        public int getLast(){
+            if(this.size==0){
+                System.out.println("Empty List");
+                return -1;
+            }
+            return this.tail.data;
+        }
+
+        public int getAt(int pos){
+            if(pos<0 || pos>=this.size){
+                System.out.print("Null Point exception");
+                return -1;
+            }
+
+            return getNodeAt(pos).data;
+        }
     }
 
     public static void main(String[] args){
@@ -177,13 +207,16 @@ public class ll{
         for(int i=1;i<=10;i++){
             ll.addFirst(i);
         } 
-        // for(int i=1;i<=10;i++){
-        //     ll.addLast(i*10);
-        // }
-        // ll.removeFirst();
-        // ll.removeLast();
-        ll.removeAt(4);
-        System.out.print(ll);
+        
+        // System.out.println(ll.removeFirst()); 
+        // System.out.println(ll.removeLast()); 
+        // System.out.println(ll.removeAt(4)); 
+        
+        System.out.println(ll);
+
+        // System.out.println(ll.getFirst());
+        // System.out.println(ll.getLast());
+        // System.out.println(ll.getAt(6)); 
     }
 }
 
